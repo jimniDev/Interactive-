@@ -24,11 +24,21 @@ export class Hill {
         ctx.fillStyle = this.color;
         ctx.beginPath();
 
-        let cur  = this.points[0];
+        let cur = this.points[0];
         let prev = cur;
 
         let dots = [];
-        // cur.x += this.speed;
+        cur.x += this.speed;
+
+        // before beginning of x get out of start point, insert new hill in the arr
+        if (cur.x > -this.gap) {
+            this.points.unshift({
+                x: -(this.gap*2),
+                y: this.getY()
+            });
+        } else if (cur.x > this.gap + this.stageWidth) { // delete if out of width
+            this.points.splice(-1);
+        }
 
         ctx.moveTo(cur.x, cur.y);
 
@@ -37,7 +47,7 @@ export class Hill {
 
         for (let i=1; i<this.points.length; i++) {
             cur = this.points[i];
-            // cur.x = this.speed;
+            cur.x += this.speed;
 
             const cx = (prev.x + cur.x) / 2;
             const cy = (prev.y + cur.y) / 2;
