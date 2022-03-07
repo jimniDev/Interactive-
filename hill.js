@@ -24,6 +24,7 @@ export class Hill {
         ctx.fillStyle = this.color;
         ctx.beginPath();
 
+        
         let cur = this.points[0];
         let prev = cur;
 
